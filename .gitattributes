@@ -1,43 +1,53 @@
-# 默认文本处理
+# Default text handling
 * text=auto
 
-# 源码文件
-*.c text eol=crlf
-*.h text eol=crlf
-*.s text eol=crlf
-*.S text eol=crlf
-*.ld text eol=crlf
+# Source files
+*.c        text eol=lf
+*.h        text eol=lf
+*.s        text eol=lf
+*.S        text eol=lf
+*.asm      text eol=lf
 
-# Keil 工程文件
-*.uvprojx text eol=crlf
-*.uvoptx text eol=crlf
-*.uvproj text eol=crlf
-*.uvopt text eol=crlf
-*.ini text eol=crlf
+# Project text files
+*.md       text eol=lf
+*.txt      text eol=lf
+*.readme   text eol=lf
+*.ini      text eol=lf
+*.cfg      text eol=lf
+*.json     text eol=lf
+*.xml      text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.cmake    text eol=lf
+CMakeLists.txt text eol=lf
 
-# 文档与配置
-*.md text eol=lf
-*.txt text eol=lf
-*.gitignore text eol=lf
-*.gitattributes text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.json text eol=lf
+# Keil project files
+*.uvprojx  text eol=crlf
+*.uvoptx   text eol=crlf
 
-# 二进制文件
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.bmp binary
-*.ico binary
-*.pdf binary
-*.zip binary
-*.rar binary
-*.7z binary
+# Scripts
+*.sh       text eol=lf
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+*.ps1      text eol=crlf
 
-# 编译与下载产物
-*.axf binary
-*.elf binary
-*.hex binary
-*.bin binary
+# Binary files
+*.o        binary
+*.d        binary
+*.crf      binary
+*.axf      binary
+*.elf      binary
+*.bin      binary
+*.hex      binary
+*.lib      binary
+*.a        binary
+*.zip      binary
+*.7z       binary
+*.rar      binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.bmp      binary
+*.ico      binary
+*.pdf      binary
