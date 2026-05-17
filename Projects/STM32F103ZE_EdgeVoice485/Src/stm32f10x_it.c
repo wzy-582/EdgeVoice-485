@@ -1,42 +1,37 @@
-#include "project_config.h"
+#include "stm32f10x_it.h"
+#include "bsp_led.h"
 
-#if (PROJECT_USE_FREERTOS != 0)
-
-#include "FreeRTOS.h"
-#include "task.h"
-
-extern void vPortSVCHandler(void);
-extern void xPortPendSVHandler(void);
-extern void xPortSysTickHandler(void);
+static void Fault_Delay(void);
 
 /**
-  * @brief  SVC 异常处理函数。
-  * @param  无
-  * @retval 无
+  * @brief  HardFault 中断处理
+  * @param  None
+  * @retval None
   */
-void SVC_Handler(void)
+void HardFault_Handler(void)
 {
-    vPortSVCHandler();
+    while (1)
+    {
+        BSP_LED_On(BSP_LED_0);
+        BSP_LED_On(BSP_LED_1);
+        Fault_Delay();
+
+        BSP_LED_Off(BSP_LED_0);
+        BSP_LED_Off(BSP_LED_1);
+        Fault_Delay();
+    }
 }
 
 /**
-  * @brief  PendSV 异常处理函数。
-  * @param  无
-  * @retval 无
+  * @brief  故障指示延时
+  * @param  None
+  * @retval None
   */
-void PendSV_Handler(void)
+static void Fault_Delay(void)
 {
-    xPortPendSVHandler();
-}
+    volatile unsigned long i;
 
-/**
-  * @brief  SysTick 中断处理函数。
-  * @param  无
-  * @retval 无
-  */
-void SysTick_Handler(void)
-{
-    xPortSysTickHandler();
+    for (i = 0; i < 800000UL; i++)
+    {
+    }
 }
-
-#endif

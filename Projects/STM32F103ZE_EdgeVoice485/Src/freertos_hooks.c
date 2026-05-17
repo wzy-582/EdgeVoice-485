@@ -1,17 +1,17 @@
 #include "project_config.h"
-#include "freertos_hooks.h"
 
 #if (PROJECT_USE_FREERTOS != 0)
 
 #include "FreeRTOS.h"
 #include "task.h"
 #include "bsp_led.h"
-#include "bsp_clock.h"
+
+static void Hook_Delay(void);
 
 /**
-  * @brief  FreeRTOS 内存分配失败回调。
-  * @param  无
-  * @retval 无
+  * @brief  内存申请失败回调
+  * @param  None
+  * @retval None
   */
 void vApplicationMallocFailedHook(void)
 {
@@ -19,38 +19,44 @@ void vApplicationMallocFailedHook(void)
 
     while (1)
     {
-        BSP_LED_On(BSP_LED_0);
-        BSP_LED_On(BSP_LED_1);
-        BSP_DelayMs(100U);
-
-        BSP_LED_Off(BSP_LED_0);
+        BSP_LED_Toggle(BSP_LED_0);
         BSP_LED_Off(BSP_LED_1);
-        BSP_DelayMs(100U);
+        Hook_Delay();
     }
 }
 
 /**
-  * @brief  FreeRTOS 任务栈溢出回调。
-  * @param  taskHandle 任务句柄。
-  * @param  taskName 任务名称。
-  * @retval 无
+  * @brief  任务栈溢出回调
+  * @param  xTask      任务句柄
+  * @param  pcTaskName 任务名称
+  * @retval None
   */
-void vApplicationStackOverflowHook(TaskHandle_t taskHandle, char *taskName)
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 {
-    (void)taskHandle;
-    (void)taskName;
+    (void)xTask;
+    (void)pcTaskName;
 
     taskDISABLE_INTERRUPTS();
 
     while (1)
     {
-        BSP_LED_On(BSP_LED_0);
-        BSP_LED_Off(BSP_LED_1);
-        BSP_DelayMs(100U);
-
         BSP_LED_Off(BSP_LED_0);
-        BSP_LED_On(BSP_LED_1);
-        BSP_DelayMs(100U);
+        BSP_LED_Toggle(BSP_LED_1);
+        Hook_Delay();
+    }
+}
+
+/**
+  * @brief  Hook 延时
+  * @param  None
+  * @retval None
+  */
+static void Hook_Delay(void)
+{
+    volatile unsigned long i;
+
+    for (i = 0; i < 800000UL; i++)
+    {
     }
 }
 

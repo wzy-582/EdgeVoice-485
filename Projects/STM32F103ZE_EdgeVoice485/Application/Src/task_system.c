@@ -62,6 +62,8 @@ static void Task_System_Entry(void *argument)
 {
     (void)argument;
 
+    BSP_LED_Off(BSP_LED_1);
+
     while (1)
     {
         BSP_LED_Toggle(BSP_LED_0);

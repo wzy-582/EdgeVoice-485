@@ -63,6 +63,8 @@ void APP_Start(void)
         }
     }
 
+    BSP_LED_On(BSP_LED_1);
+
     vTaskStartScheduler();
 
     while (1)

@@ -1,7 +1,7 @@
 #ifndef EDGEVOICE485_PROJECT_CONFIG_H
 #define EDGEVOICE485_PROJECT_CONFIG_H
 
-#define PROJECT_USE_FREERTOS                 0
+#define PROJECT_USE_FREERTOS                 1
 
 #define APP_BARE_METAL_HEARTBEAT_MS          500U
 #define APP_SYSTEM_TASK_PERIOD_MS            500U

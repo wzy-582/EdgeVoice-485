@@ -1,13 +1,46 @@
 # 引脚分配表
 
-| 功能 | MCU 引脚/端口 | 有效电平 | 当前状态 | 说明 |
-|---|---:|---:|---|---|
-| LED0 | PB5 | 低电平点亮 | 已启用 | `BOARD_LED0_GPIO_PORT` / `BOARD_LED0_GPIO_PIN` |
-| LED1 | PE5 | 低电平点亮 | 已启用 | `BOARD_LED1_GPIO_PORT` / `BOARD_LED1_GPIO_PIN` |
-| RS485 UART | 待确认 | 待确认 | 未启用 | 串口收发 |
-| RS485 DE/RE | 待确认 | 待确认 | 未启用 | 收发方向控制 |
-| CAN | 待确认 | 待确认 | 未启用 | CAN 总线 |
-| Voice UART | 待确认 | 待确认 | 未启用 | 语音模块串口 |
-| ADC Channels | 待确认 | 待确认 | 未启用 | 多通道采集 |
+## 已验证引脚
 
-引脚宏定义位于 `board_config.h` 或对应 BSP 配置文件。
+| 功能 | MCU 引脚/端口 | 有效电平 | 当前用途 | 说明 |
+|---|---:|---:|---|---|
+| LED0 | PB5 | 低电平点亮 | 系统任务心跳 | `BOARD_LED0_GPIO_PORT` / `BOARD_LED0_GPIO_PIN` |
+| LED1 | PE5 | 低电平点亮 | 启动和异常指示 | `BOARD_LED1_GPIO_PORT` / `BOARD_LED1_GPIO_PIN` |
+
+## LED 配置
+
+LED 引脚宏定义位于：
+
+```text
+Projects/STM32F103ZE_EdgeVoice485/Inc/board_config.h
+```
+
+当前配置如下：
+
+```text
+BOARD_LED0_GPIO_PORT    GPIOB
+BOARD_LED0_GPIO_PIN     GPIO_Pin_5
+
+BOARD_LED1_GPIO_PORT    GPIOE
+BOARD_LED1_GPIO_PIN     GPIO_Pin_5
+
+BOARD_LED_ACTIVE_LOW    1
+```
+
+LED 驱动文件位于：
+
+```text
+Drivers/BSP/EdgeVoice485_Board/Src/bsp_led.c
+Drivers/BSP/EdgeVoice485_Board/Inc/bsp_led.h
+```
+
+## 后续外设引脚规划
+
+| 模块 | 外设资源 | 用途 |
+|---|---|---|
+| RS485 | USART + DE/RE GPIO | 半双工总线通信 |
+| CAN | CAN1 | CAN 总线通信 |
+| Voice UART | USART | 离线语音模块接入 |
+| ADC Channels | ADC + DMA | 多通道数据采集 |
+| Timer | TIM | 周期采样和时间基准 |
+
